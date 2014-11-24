@@ -1,0 +1,61 @@
+
+string subj_code = logfile.subject();
+output_file rating_out = new output_file;
+rating_out.open_append("Rating_VP_Mindfulness.txt");
+rating_out.print("ID"+"\t"+"Run"+"\t"+"Trial" + "\t" + "Onset_Interruption" +"\t"+ "Onset_Frage" + "\t"+ "Frage 1" + "\t"+"\n");
+
+int links = 1;
+int rechts = 2;
+int last_response;
+int now;
+
+sub mark_green (int button)
+begin
+	if button == 1 then
+		feedback_pic.set_part(2, kasteng1);
+		feedback_pic.set_part(3, kastenw2);
+	elseif button == 2 then
+		feedback_pic.set_part(3, kasteng2);
+		feedback_pic.set_part(2, kastenw1);
+	end;
+end;
+
+## the real array
+#array <int> timesarray[20] = {10000,30000,35000,40000,45000,45000,50000,55000,60000,80000,10000,30000,35000,40000,45000,45000,50000,55000,60000,80000};
+
+## the array for trying out whether the experiment works
+array <int> timesarray[20] ={5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000};
+
+loop int a=1 until a>3 begin
+	if a==2 then
+		Teilpic.set_part(1, Teil2_text);
+	elseif a==3 then
+		Teilpic.set_part(1,Teil3_text);
+	end;
+Teiltrial.present();
+Instructionstrial.present();
+
+timesarray.shuffle();
+
+loop int i = 1 until i>20 begin
+		ITI1.set_duration (timesarray[i]);
+		bell2.set_deltat(timesarray[i]);
+		rating_out.print(subj_code+"\t"+"Trial"+ string(a)+ "\t"+string(i)+"\t");
+		Meditation_trial.present();
+		now = clock.time();
+		rating_out.print(string(now)+"\t");
+		Rating_trial.present ();
+		last_response = response_manager.last_response();
+		if last_response == rechts then
+			mark_green (rechts);
+		elseif last_response == links then
+			mark_green (links);
+		end;
+		rating_out.print(string(last_response)+"\n");
+		Feedback_trial.present();
+		i=i+1;
+	end;
+a = a+1;
+end;
+
+rating_out.print("\n"+"\n");
