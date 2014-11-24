@@ -1,5 +1,5 @@
 <ver>16.5</ver>
-<efn>C:\Users\user\Dropbox\16_Neuroimaging Paradigm\02_Experiment\141111_fMRT_Experiment.exp</efn>
+<efn>C:\Users\user\Documents\GitHub\Mindfulness_fMRI\fMRT_mindfulness_exp.exp</efn>
 <author>hannah Scheibner</author>
 <con>
 <pause>P</pause>
@@ -34,11 +34,11 @@
 <lfn></lfn>
 </docs>
 <dp_list></dp_list>
-<dsd>C:\Users\user\Dropbox\16_Neuroimaging Paradigm\02_Experiment\stim</dsd>
+<dsd>C:\Users\user\Documents\GitHub\Mindfulness_fMRI\stim</dsd>
 <dxv>8</dxv>
 <efs>
-<filename>C:\Users\user\Dropbox\16_Neuroimaging Paradigm\02_Experiment\141112_fMRT_Experiment.sce</filename>
-<filename>C:\Users\user\Dropbox\16_Neuroimaging Paradigm\02_Experiment\141124_fMRT_Experiment.pcl</filename>
+<filename>C:\Users\user\Documents\GitHub\Mindfulness_fMRI\fMRT_mindfulness_pcl.pcl</filename>
+<filename>C:\Users\user\Documents\GitHub\Mindfulness_fMRI\fMRT_mindfulness_sce.sce</filename>
 </efs>
 <exclusive_mouse>1</exclusive_mouse>
 <exp_version></exp_version>
@@ -106,7 +106,7 @@
 <idt>1000</idt>
 <ip_chans></ip_chans>
 <isb>10000</isb>
-<lfd>C:\Users\user\Dropbox\16_Neuroimaging Paradigm\02_Experiment</lfd>
+<lfd>C:\Users\user\Desktop</lfd>
 <lnb>2</lnb>
 <lno>3</lno>
 <log>
@@ -398,7 +398,7 @@
 <offset>13</offset>
 <offset>14</offset>
 </idv>
-<sfn>C:\Users\user\Dropbox\16_Neuroimaging Paradigm\02_Experiment\141112_fMRT_Experiment.sce</sfn>
+<sfn>C:\Users\user\Documents\GitHub\Mindfulness_fMRI\fMRT_mindfulness_sce.sce</sfn>
 </sce>
 <sct>
 <capture_device>

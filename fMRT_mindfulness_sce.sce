@@ -12,7 +12,7 @@ screen_width = 1280;
 screen_height = 720;							
 screen_bit_depth = 32;  
 
-pcl_file = "141124_fMRT_Experiment.pcl";
+pcl_file = "fMRT_mindfulness_pcl.pcl";
 
 begin;
 
