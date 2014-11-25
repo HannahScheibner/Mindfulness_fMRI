@@ -101,12 +101,12 @@ trial {
 			text {
 				caption = "achtsam";
 				font_size = 16;
-				font_color = 255, 255, 255;} ;
+				font_color = 255, 255, 255;}achtsamantwort ;
 			x = -90; y = 40;  
 			text {
 				caption = "abgelenkt";
 				font_size = 16;
-				font_color = 255, 255, 255;} ;
+				font_color = 255, 255, 255;}abgelenktantwort ;
 			x = 90; y = 40;
 			} rat_1_pic;
 			time = 0;
