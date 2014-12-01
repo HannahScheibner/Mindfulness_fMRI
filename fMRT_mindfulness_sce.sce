@@ -1,30 +1,77 @@
+#############################################################################
+#01.12.2014
+#		
+#
+#		Mindfulness - MRT Experiment
+#		
+#
+#		Scenario - File for fMRI
+#
+#     
+#		
+#		***************
+#
+#
+#############################################################################
+
+
+
+#############################################################################
+##
+## SDL header part
+##
+#############################################################################
+
 scenario = "Experiment 1";
-scenario_type = trials;
-active_buttons = 3;
-button_codes = 1,2,3;	
-target_button_codes = 11,12,13;
+pcl_file = "fMRT_mindfulness_pcl.pcl";
 
-response_port_output=false;            		 
+scenario_type = fMRI_emulation;
+#*scanner:
+#scenario_type = fMRI;
+#before:
+#scenario_type = trials;
+
+pulses_per_scan = 1;
+pulse_code = 99; 
 response_matching = simple_matching; 
+#response_port_output=false;
 
+# only for emulation
+scan_period = 2000;
+
+# defaults
 default_background_color =0,0,0; 
 screen_width = 1280;						
 screen_height = 720;							
 screen_bit_depth = 32;  
 
-pcl_file = "fMRT_mindfulness_pcl.pcl";
+# response buttons
+active_buttons = 3;
+button_codes = 1,2,3;	
+target_button_codes = 11,12,13; #fuers logfile: Tasten Maus links/rechts, Leertaste
+
+
+            		 
+#############################################################################
+##
+## Stimuli
+##
+#############################################################################
+
+
+
 
 begin;
 
-text {caption = " FÃ¼hren Sie die 'Aufmerkamkeit auf den Atem'
-Ãœbung durch. 
+text {caption = " Führen Sie die 'Aufmerkamkeit auf den Atem'
+Übung durch. 
 
-Wenn der Gong ertÃ¶nt, beantworten Sie
+Wenn der Gong ertönt, beantworten Sie
 die Frage auf dem Bildschirm."; system_memory = true; font_size = 32;} Instructions_text;
 
-text {caption = "Teil 1"; system_memory = true; font_size = 38;} Teil1_text;
-text {caption = "Teil 2"; system_memory = true; font_size = 38;} Teil2_text;
-text {caption = "Teil 3"; system_memory = true; font_size = 38;} Teil3_text;
+text {caption = "Atem"; system_memory = true; font_size = 38;} internal_text;
+text {caption = "Ton"; system_memory = true; font_size = 38;} external_text;
+
 
 text {caption = "+"; system_memory = true; font_size = 38;} fix_cross_text;
 picture {text fix_cross_text;x = 0; y = 0;}fixcross;
@@ -44,10 +91,20 @@ trial{
 	trial_type=fixed;
 	trial_duration = 2000;
 	picture {
-				text Teil1_text;
+				text internal_text;
 				x = 0; y = 0;
-				} Teilpic;
-	} Teiltrial;
+				} ;
+	} Condition_internal;
+
+trial{
+	trial_type=fixed;
+	trial_duration = 2000;
+	picture {
+				text external_text;
+				x = 0; y = 0;
+				} ;
+	} Condition_external;
+
 
 trial{
 	trial_type=fixed;
@@ -79,8 +136,38 @@ trial{
 		code = "Interuption";
 		deltat = 10000; 
 		duration = 500;	
+	}bell1;
+}mindfulness_internal_trial;
+
+trial{
+	trial_type= fixed;
+	trial_duration=stimuli_length;
+	#stimulus_event{
+		#sound bell;
+		#code = "Beginning";
+		#deltat = 1500;
+		#duration = 1000;	
+	#}bell1;
+	stimulus_event 	
+	{picture fixcross;
+		code = "Fixcross";
+		deltat = 0;
+		duration = 10000;}ITI2;
+	stimulus_event{
+		sound bell;
+		loop_playback = true;
+		deltat = 0;
+		duration = 10000;
+	}tone;
+	stimulus_event #picture fixcross;
+		sound bell;
+		code = "Interuption";
+		deltat = 10000; 
+		duration = 500;	
 	}bell2;
-}Meditation_trial;
+}mindfulness_external_trial;
+
+
 
 trial {
 	trial_type = specific_response;
@@ -89,7 +176,7 @@ trial {
 		stimulus_event {
 			picture {
 				text {
-				caption = "Als die Klangschale ertÃ¶nte, war ich gerade...";
+				caption = "Als die Klangschale ertönte, war ich gerade...";
 				font_size = 20;
 				font_color = 255,255,255;
 				} WowarenSie1_txt;
@@ -121,7 +208,7 @@ trial {
 		stimulus_event {
 			picture {
 				text {
-				caption = "Als die Klangschale ertÃ¶nte, war ich gerade...";
+				caption = "Als die Klangschale ertönte, war ich gerade...";
 				font_size = 20;
 				font_color = 255,255,255;
 				};

@@ -1,6 +1,6 @@
 <ver>16.5</ver>
 <efn>C:\Users\user\Documents\GitHub\Mindfulness_fMRI\fMRT_mindfulness_exp.exp</efn>
-<author>hannah Scheibner</author>
+<author></author>
 <con>
 <pause>P</pause>
 <pause_code></pause_code>
@@ -15,19 +15,19 @@
 </con>
 <dbi></dbi>
 <dbs>button</dbs>
-<ddi>0</ddi>
+<ddi>-1</ddi>
 <dds>
 <icm_profile></icm_profile>
 <use_icm>0</use_icm>
 </dds>
-<ddv>Primary Display Driver</ddv>
+<ddv>None</ddv>
 <depchg>1</depchg>
 <discard_windows_messages>0</discard_windows_messages>
 <display_status_window>1</display_status_window>
-<dmd>32</dmd>
-<dmh>720</dmh>
-<dmr>60</dmr>
-<dmw>1280</dmw>
+<dmd>0</dmd>
+<dmh>0</dmh>
+<dmr>1</dmr>
+<dmw>0</dmw>
 <docs>
 <args></args>
 <exfl></exfl>
@@ -35,7 +35,7 @@
 </docs>
 <dp_list></dp_list>
 <dsd>C:\Users\user\Documents\GitHub\Mindfulness_fMRI\stim</dsd>
-<dxv>8</dxv>
+<dxv>6</dxv>
 <efs>
 <filename>C:\Users\user\Documents\GitHub\Mindfulness_fMRI\fMRT_mindfulness_pcl.pcl</filename>
 <filename>C:\Users\user\Documents\GitHub\Mindfulness_fMRI\fMRT_mindfulness_sce.sce</filename>
@@ -74,12 +74,12 @@
 </ssa>
 </man>
 </exparam>
-<experiment_id>{832120EC-04E4-4757-9B01-C3B244F403F2}</experiment_id>
+<experiment_id></experiment_id>
 <font_settings>
 <dpi>96</dpi>
-<font_smooth>1</font_smooth>
-<use_dpi>1</use_dpi>
-<use_font_smooth>1</use_font_smooth>
+<font_smooth>0</font_smooth>
+<use_dpi>0</use_dpi>
+<use_font_smooth>0</use_font_smooth>
 </font_settings>
 <ftp>
 <ccc>0</ccc>
@@ -87,7 +87,7 @@
 <sce>1</sce>
 </do_upload>
 <host></host>
-<id>{BA032042-1F2F-4733-941D-ADB6D5A51E53}</id>
+<id>{7ACAC87D-14D4-4F1B-9AFA-0893FC41AC1C}</id>
 <idle_timeout>0</idle_timeout>
 <login_timeout>0</login_timeout>
 <mode>0</mode>
@@ -104,20 +104,25 @@
 </ftp>
 <idc>0</idc>
 <idt>1000</idt>
-<ip_chans></ip_chans>
+<ip_chans>
+<chan>
+<name>trigger channel</name>
+<pindex>4294967295</pindex>
+</chan>
+</ip_chans>
 <isb>10000</isb>
 <lfd>C:\Users\user\Desktop</lfd>
-<lnb>2</lnb>
+<lnb>1</lnb>
 <lno>3</lno>
 <log>
-<append_counter>0</append_counter>
+<append_counter>1</append_counter>
 <delimiter>9</delimiter>
 <general_list>1</general_list>
 <pien>0</pien>
 <set_def_file></set_def_file>
 <stimulus_list>0</stimulus_list>
 <subject_id></subject_id>
-<subject_id_pol>1</subject_id_pol>
+<subject_id_pol>2</subject_id_pol>
 <video_list>0</video_list>
 <warnings>1</warnings>
 </log>
@@ -126,7 +131,7 @@
 <maxpv></maxpv>
 <minpv></minpv>
 <mss>4</mss>
-<nam>Experiment</nam>
+<nam>mindfulness experiment</nam>
 <one_processor>2</one_processor>
 <oports></oports>
 <out_encrypt_key></out_encrypt_key>
@@ -367,36 +372,36 @@
 </rdl>
 <refchg>1</refchg>
 <rep>1</rep>
-<require_name_match>0</require_name_match>
+<require_name_match>1</require_name_match>
 <reschg>1</reschg>
-<rng>1</rng>
+<rng>0</rng>
 <rts>1</rts>
 <sbs>100000</sbs>
 <sce>
 <idv>
-<device_type>2</device_type>
-<dx_device_type>18</dx_device_type>
-<ibn>Taste 0</ibn>
-<ibn>Taste 1</ibn>
-<ibn>Taste 2</ibn>
-<idn>Maus</idn>
-<offset>12</offset>
-<offset>13</offset>
-<offset>14</offset>
+<device_type>3</device_type>
+<dx_device_type>19</dx_device_type>
+<ibn>1 (ZEHNERTASTATUR)</ibn>
+<ibn>2 (ZEHNERTASTATUR)</ibn>
+<ibn>3 (ZEHNERTASTATUR)</ibn>
+<idn>Tastatur</idn>
+<offset>79</offset>
+<offset>80</offset>
+<offset>81</offset>
 </idv>
 <sfn>all_scenarios</sfn>
 </sce>
 <sce>
 <idv>
-<device_type>2</device_type>
-<dx_device_type>18</dx_device_type>
-<ibn>Taste 0</ibn>
-<ibn>Taste 1</ibn>
-<ibn>Taste 2</ibn>
-<idn>Maus</idn>
-<offset>12</offset>
-<offset>13</offset>
-<offset>14</offset>
+<device_type>3</device_type>
+<dx_device_type>19</dx_device_type>
+<ibn>1 (ZEHNERTASTATUR)</ibn>
+<ibn>2 (ZEHNERTASTATUR)</ibn>
+<ibn>3 (ZEHNERTASTATUR)</ibn>
+<idn>Tastatur</idn>
+<offset>79</offset>
+<offset>80</offset>
+<offset>81</offset>
 </idv>
 <sfn>C:\Users\user\Documents\GitHub\Mindfulness_fMRI\fMRT_mindfulness_sce.sce</sfn>
 </sce>
@@ -426,16 +431,16 @@
 </sct>
 <sde>
 <buffer_length>1000</buffer_length>
-<custom_buf>sec_sw</custom_buf>
+<custom_buf>primary</custom_buf>
 <halt_on_underrun>1</halt_on_underrun>
 <hw_buffer>0</hw_buffer>
-<max_mix_length>50</max_mix_length>
-<min_mix_length>25</min_mix_length>
-<mixer>dx_software</mixer>
+<max_mix_length>400</max_mix_length>
+<min_mix_length>100</min_mix_length>
+<mixer>custom</mixer>
 <rewind_distance>10</rewind_distance>
 <side_speakers>1</side_speakers>
 </sde>
-<sdv>Prim√§rer Soundtreiber</sdv>
+<sdv>Prim‰rer Soundtreiber</sdv>
 <smc>2</smc>
 <smd>16</smd>
 <smr>44100</smr>
@@ -452,27 +457,18 @@
 <svl>
 <attenuation>0</attenuation>
 <do_attenuation>0</do_attenuation>
-<do_volume>0</do_volume>
+<do_volume>1</do_volume>
 <volume>1</volume>
 </svl>
 <swp>1</swp>
-<text_encoding>utf8</text_encoding>
+<text_encoding>single_byte</text_encoding>
 <trigger_mode>
-<bl>
-<idv>
-<device_type>3</device_type>
-<dx_device_type>19</dx_device_type>
-<ibn>1</ibn>
-<idn>Tastatur</idn>
-<offset>2</offset>
-</idv>
-</bl>
-<cn></cn>
-<m>1</m>
-<v></v>
+<cn>trigger channel</cn>
+<m>0</m>
+<v>2</v>
 <vt>0</vt>
 </trigger_mode>
 <udt>0</udt>
-<unc>**********************Approach Avoidance IAT following SRC training 1Indeling:alcohol rechts</unc>
+<unc>1</unc>
 <upb>0</upb>
 <urp>0</urp>
