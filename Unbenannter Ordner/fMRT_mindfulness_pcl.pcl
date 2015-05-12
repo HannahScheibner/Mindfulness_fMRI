@@ -1,0 +1,140 @@
+
+string subj_code = logfile.subject();
+output_file rating_out = new output_file;
+rating_out.open_append("Rating_VP_Mindfulness.txt");
+rating_out.print("ID"+ "\t"+"achtsamkeit"+"\t"+"Run"+"\t"+"Trial" + "\t" + "Onset_Interruption" +"\t"+ "Onset_Frage" + "\t"+ "Frage 1" + "\t"+"\n");
+
+int links = 1;
+int rechts = 2;
+int last_response;
+int now;
+int MW_total = 0;
+int MF_total = 0;
+bool linksabgelenkt;
+string achtsamkeit;
+
+sub mark_green (int button)
+begin
+	if button == 1 then
+		feedback_pic.set_part(2, kasteng1);
+		feedback_pic.set_part(3, kastenw2);
+		if linksabgelenkt then
+			MW_total = MW_total+1;
+		else
+			MF_total = MF_total+1;
+		end;
+	elseif button == 2 then
+		feedback_pic.set_part(3, kasteng2);
+		feedback_pic.set_part(2, kastenw1);
+		if linksabgelenkt then
+			MF_total = MF_total+1;
+		else
+			MW_total = MW_total+1;
+		end;
+	end;
+end;
+
+## the real array
+#array <int> timesarray[20] = {10000,30000,35000,40000,45000,45000,50000,55000,60000,80000,10000,30000,35000,40000,45000,45000,50000,55000,60000,80000};
+
+## the array for trying out whether the experiment works
+array <int> timesarray[20] ={5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000,5000, 5000};
+
+
+sub mindfulness_internal begin
+	Condition_internal.present();
+	timesarray.shuffle();
+loop int i = 1 until i>20 begin
+		ITI1.set_duration (timesarray[i]);
+		bell1.set_deltat(timesarray[i]);
+		rating_out.print(subj_code+"\t"+achtsamkeit+"\t"+"Trial"+ string(a)+ "\t"+string(i)+"\t");
+		mindfulness_internal_trial.present();
+		now = clock.time();
+		rating_out.print(string(now)+"\t");
+		Rating_trial.present ();
+		if response_manager.response_count() > 0 then
+			last_response = response_manager.last_response();
+			if last_response == rechts then
+				mark_green (rechts);
+			elseif last_response == links then
+				mark_green (links);
+			end;
+			Feedback_trial.present();
+		else 
+			last_response = 0;
+		end;
+		rating_out.print(string(last_response)+"\n");
+		i=i+1;
+	end;
+end;
+
+sub mindfulness_external begin
+	Condition_external.present();
+	timesarray.shuffle();
+loop int i = 1 until i>20 begin
+		ITI2.set_duration (timesarray[i]);
+		bell2.set_deltat(timesarray[i]);
+		rating_out.print(subj_code+"\t"+achtsamkeit+"\t"+"Trial"+ string(a)+ "\t"+string(i)+"\t");
+		mindfulness_external_trial.present();
+		now = clock.time();
+		rating_out.print(string(now)+"\t");
+		Rating_trial.present ();
+		if response_manager.response_count() > 0 then
+			last_response = response_manager.last_response();
+			if last_response == rechts then
+				mark_green (rechts);
+			elseif last_response == links then
+				mark_green (links);
+			end;
+			Feedback_trial.present();
+		else 
+			last_response = 0;
+		end;
+		rating_out.print(string(last_response)+"\n");
+		i=i+1;
+	end;
+end;
+
+## The same experiment is run 3 times ###
+### we will randomize whether subjects see "achtsam" left or right
+
+if (int(subj_code) % 2 == 0) then
+	rat_1_pic.set_part(4, abgelenktantwort);
+	rat_1_pic.set_part(5, achtsamantwort);
+	feedback_pic.set_part(4, abgelenktantwort);
+	feedback_pic.set_part(5, achtsamantwort);
+	linksabgelenkt=true;
+	achtsamkeit = "rechts(2)"
+else
+	linksabgelenkt=false;
+	achtsamkeit = "links(1)"
+end;
+
+
+
+Instructionstrial.present();
+
+If condition = 1 then
+mindfulness_internal;
+mindfulness_external;
+mindfulness_internal;
+mindfulness_external;
+mindfulness_internal;
+mindfulness_external;
+
+elseif condition = 2 then
+	
+mindfulness_external;
+mindfulness_internal;
+mindfulness_external;
+mindfulness_internal;
+mindfulness_external;
+mindfulness_internal;
+
+end;
+
+
+
+
+rating_out.print("MF total" + string(MF_total) +"\t" +"MW total" + string(MW_total) +"\n");
+
