@@ -2,7 +2,7 @@
 
 function [names, onsets, durations] = MF_time10(prefix, name)
 
-computer = 1; % 1 = ubuntu, 2 = mac, 3 = windows
+computer = 3; % 1 = ubuntu, 2 = mac, 3 = windows
 
     if computer ==1 %ubuntu
         subj_dir = strcat('/home/hannah/Dokumente/MF_MRTStudie/01_Daten/Probanden/', prefix, '/');
@@ -11,16 +11,22 @@ computer = 1; % 1 = ubuntu, 2 = mac, 3 = windows
         subj_dir = strcat('/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden/', prefix, '/');
         filename = strcat(subj_dir, 'log/' ,prefix, name);  
     elseif computer ==3 %windows
-        subj_dir = strcat('F:\MF_MRTStudie\01_Daten\Probanden\', prefix, '\');
+        subj_dir = strcat('C:\Users\scheibha\Documents\MRT_HC\01_Daten\Probanden\', prefix, '\');
         filename = strcat(subj_dir, 'log\' ,prefix, name); %windows
     end
 
 
 
 %[subj, ftrial, fevent, fcode, ftime, fttime, funcertianty, fduration, funcertainty, freqtime, freqdur] = textread(filename, '%s%s%s%s%s%s%s%s%s%s%s', 'delimiter', '\t', 'headerlines', 5);
-
 [subj, ftrial, fevent, fcode, ftime, fttime, funcertianty, fduration, funcertainty, freqtime, freqdur] = textread(filename, '%s%s%s%s%s%s%s%s%s%s%s', 'delimiter', '\t', 'headerlines', 5);
 
+[subj, ftrial, fevent, ftype, fcode, ftime, fttime, funcertianty, fduration, funcertainty, freqtime, freqdur] = textread(filename, '%s%s%s%s%s%s%s%s%s%s%s%s', 'delimiter', '\t', 'headerlines', 5);
+
+subj_dir
+filename
+ftrial{5}
+%%% funktioniert!
+%% ftime_start finden
 
 
 dummy = 0;
