@@ -1,4 +1,4 @@
-function firstlevel_MF
+function firstlevel_MF_2TR_button
 
 % --------
 % Subjects
@@ -20,7 +20,7 @@ computer = 1; % 1 = ubuntu, 2 = mac, 3 = windows
 
     if computer == 1 %ubuntu
         task              = 'NIFTI/MF'; 
-        analysis_name     = '1stlevel_2TR';
+        analysis_name     = '1stlevel_2TR_button';
         base              = '/home/hannah/Dokumente/MF_MRTStudie/01_Daten/Probanden';
         dir_logfiles      = '/home/hannah/Dokumente/MF_MRTStudie/01_Daten/Probanden'; 
         dir_analysis = '/home/hannah/Dokumente/MF_MRTStudie/01_Daten/Probanden';
@@ -61,6 +61,14 @@ onset3_2 = '-03_fMRT_mindfulness_external_7.log_time2.mat';
 onset4_1 = '-04_fMRT_mindfulness_external_7.log_time2.mat';
 onset4_2 = '-04_fMRT_mindfulness_internal_7.log_time2.mat';
 
+button1_1 = '-01_fMRT_mindfulness_internal_15_sce.log_time_buttons.mat';
+button1_2 = '-01_fMRT_mindfulness_external_15_sce.log_time_buttons.mat';
+button2_1 = '-02_fMRT_mindfulness_external_15_sce.log_time_buttons.mat';
+button2_2 = '-02_fMRT_mindfulness_internal_15_sce.log_time_buttons.mat';
+button3_1 = '-03_fMRT_mindfulness_internal_7.log_time_buttons.mat';
+button3_2 = '-03_fMRT_mindfulness_external_7.log_time_buttons.mat';
+button4_1 = '-04_fMRT_mindfulness_external_7.log_time_buttons.mat';
+button4_2 = '-04_fMRT_mindfulness_internal_7.log_time_buttons.mat';
 
 
 
@@ -107,22 +115,30 @@ for g = 1:size(subs,2)
             if subs(g) <200
                 if s == 1 
                     sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset1_1])
+                    sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button1_1])
                 elseif s==2
                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset2_1]);
+                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button2_1]);
                 elseif s==3
                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset3_1]);
+                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button3_1]); 
                 elseif s==4
                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset4_1]);    
+                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button4_1]);    
                 end
             else
                  if s == 1 
                     sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset1_2]);
+                    sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button1_2]);
                 elseif s==2
                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset2_2]);
+                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button2_2]);
                 elseif s==3
                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset3_2]);
+                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button3_2]);
                 elseif s==4
-                 sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset4_2]);    
+                 sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset4_2]);
+                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button4_2]);
                  end
             end
             matlabbatch{z}.spm.stats.fmri_spec.sess(s).scans             = select_scans('^s8.*',[base filesep num2str(subs(g)) filesep task filesep num2str(s)]) %kann je nach smoothing ge�ndert werden
@@ -141,10 +157,16 @@ for g = 1:size(subs,2)
             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(2).duration  = sess_onsets.durations{2,1};
             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(2).tmod      = 0
             
-%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).name      = sess_onsets.names{3,1}; %no_response
-%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).onset     = sess_onsets.onsets{3,1};
-%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).duration  = sess_onsets.durations{3,1};
-%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).tmod      = 0
+             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).name      = sess_buttons.names{1,1}; %no_response
+             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).onset     = sess_buttons.onsets{1,1};
+             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).duration  = sess_buttons.durations{1,1};
+            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).tmod      = 0
+
+             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).name      = sess_buttons.names{2,1}; %no_response
+             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).onset     = sess_buttons.onsets{2,1};
+             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).duration  = sess_buttons.durations{2,1};
+            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).tmod      = 0
+
             
             
             matlabbatch{z}.spm.stats.fmri_spec.sess(s).multi             = {''};
@@ -194,45 +216,51 @@ for g = 1:size(subs,2)
     
     
             matlabbatch{z}.spm.stats.con.consess{1}.fcon.name    = 'effects of interest';
-            matlabbatch{z}.spm.stats.con.consess{1}.fcon.convec  = {[eye(8) zeros(8,1)]}; %% 12= es gibt 2 Moglichkeiten fuer 4 sessions
+            matlabbatch{z}.spm.stats.con.consess{1}.fcon.convec  = {[eye(16) zeros(16,1)]}; %% 12= es gibt 4 Moglichkeiten fuer 4 sessions
             
-            matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'achtsam';
-            matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [1 0 1 0 1 0 1 0];
-    
-            matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenkt';
-            matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 1 0 1 0 1 0 1];
-            
-            
-            matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsam-abgelenkt';
-            matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [1 -1 1 -1 1 -1 1 -1]; 
+%             matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'achtsam';
+%             matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0];
+%     
+%             matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenkt';
+%             matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0];
+%             
+%             
+%             matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsam-abgelenkt';
+%             matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [1 -1 1 -1 1 -1 1 -1 0 0 0 0 0 0 0 0]; 
             
             
             if subs(g) > 200
             
-            matlabbatch{z}.spm.stats.con.consess{5}.tcon.name    = 'abgelenktTon';
-            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [0 1 0 0 0 1 0 0];
+            matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'abgelenktTon';
+            matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0];
             
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.name    = 'abgelenktAtem';
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.convec  = [0 0 0 1 0 0 0 1];
+            matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenktAtem';
+            matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0];
             
-            matlabbatch{z}.spm.stats.con.consess{7}.tcon.name    = 'achtsamTon';
-            matlabbatch{z}.spm.stats.con.consess{7}.tcon.convec  = [1 0 0 0 1 0 0 0];
+            matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsamTon';
+            matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0];
             
-            matlabbatch{z}.spm.stats.con.consess{8}.tcon.name    = 'achtsamAtem';
-            matlabbatch{z}.spm.stats.con.consess{8}.tcon.convec  = [0 0 1 0 0 0 1 0];
+            matlabbatch{z}.spm.stats.con.consess{5}.tcon.name    = 'achtsamAtem';
+            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0];
+            
+            matlabbatch{z}.spm.stats.con.consess{6}.tcon.name    = 'Antworten';
+            matlabbatch{z}.spm.stats.con.consess{6}.tcon.convec  = [0 0 1 1 0 0 1 1 0 0 1 1 0 0 1 1];
 
             else
-            matlabbatch{z}.spm.stats.con.consess{5}.tcon.name    = 'abgelenktTon';
-            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [0 0 0 1 0 0 0 1];   
+            matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'abgelenktTon';
+            matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0];   
             
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.name    = 'abgelenktAtem';
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.convec  = [0 1 0 0 0 1 0 0];
+            matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenktAtem';
+            matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0];
             
-            matlabbatch{z}.spm.stats.con.consess{7}.tcon.name    = 'achtsamTon';
-            matlabbatch{z}.spm.stats.con.consess{7}.tcon.convec  = [0 0 1 0 0 0 1 0];
+            matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsamTon';
+            matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0];
             
-            matlabbatch{z}.spm.stats.con.consess{8}.tcon.name    = 'achtsamAtem';
-            matlabbatch{z}.spm.stats.con.consess{8}.tcon.convec  = [1 0 0 0 1 0 0 0];
+            matlabbatch{z}.spm.stats.con.consess{5}.tcon.name    = 'achtsamAtem';
+            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0];
+            
+            matlabbatch{z}.spm.stats.con.consess{6}.tcon.name    = 'Antworten';
+            matlabbatch{z}.spm.stats.con.consess{6}.tcon.convec  = [0 0 1 1 0 0 1 1 0 0 1 1 0 0 1 1];
                 
                 
             end

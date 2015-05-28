@@ -42,8 +42,8 @@ dir_starting      = pwd;                                                    % pw
 % -----
 % flags
 % -----
-specify   = 0;                                                             % ENTER: 0-No/1-Yes
-estimate  = 0; %!!!                                                        % ENTER: 0-No/1-Yes
+specify   = 1;                                                             % ENTER: 0-No/1-Yes
+estimate  = 1; %!!!                                                        % ENTER: 0-No/1-Yes
 inference = 1; %!!!                                                        % ENTER: 0-No/1-Yes
 
 
@@ -196,43 +196,43 @@ for g = 1:size(subs,2)
             matlabbatch{z}.spm.stats.con.consess{1}.fcon.name    = 'effects of interest';
             matlabbatch{z}.spm.stats.con.consess{1}.fcon.convec  = {[eye(8) zeros(8,1)]}; %% 12= es gibt 2 Moglichkeiten fuer 4 sessions
             
-            matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'achtsam';
-            matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [1 0 1 0 1 0 1 0];
-    
-            matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenkt';
-            matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 1 0 1 0 1 0 1];
-            
-            
-            matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsam-abgelenkt';
-            matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [1 -1 1 -1 1 -1 1 -1]; 
+%             matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'achtsam';
+%             matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [1 0 1 0 1 0 1 0];
+%     
+%             matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenkt';
+%             matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 1 0 1 0 1 0 1];
+%             
+%             
+%             matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsam-abgelenkt';
+%             matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [1 -1 1 -1 1 -1 1 -1]; 
             
             
             if subs(g) > 200
             
-            matlabbatch{z}.spm.stats.con.consess{5}.tcon.name    = 'abgelenktTon';
-            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [0 1 0 0 0 1 0 0];
+            matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'abgelenktTon';
+            matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [0 1 0 0 0 1 0 0];
             
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.name    = 'abgelenktAtem';
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.convec  = [0 0 0 1 0 0 0 1];
+            matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenktAtem';
+            matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 0 0 1 0 0 0 1];
             
-            matlabbatch{z}.spm.stats.con.consess{7}.tcon.name    = 'achtsamTon';
-            matlabbatch{z}.spm.stats.con.consess{7}.tcon.convec  = [1 0 0 0 1 0 0 0];
+            matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsamTon';
+            matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [1 0 0 0 1 0 0 0];
             
-            matlabbatch{z}.spm.stats.con.consess{8}.tcon.name    = 'achtsamAtem';
-            matlabbatch{z}.spm.stats.con.consess{8}.tcon.convec  = [0 0 1 0 0 0 1 0];
+            matlabbatch{z}.spm.stats.con.consess{5}.tcon.name    = 'achtsamAtem';
+            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [0 0 1 0 0 0 1 0];
 
             else
-            matlabbatch{z}.spm.stats.con.consess{5}.tcon.name    = 'abgelenktTon';
-            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [0 0 0 1 0 0 0 1];   
+            matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'abgelenktTon';
+            matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [0 0 0 1 0 0 0 1];   
             
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.name    = 'abgelenktAtem';
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.convec  = [0 1 0 0 0 1 0 0];
+            matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenktAtem';
+            matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 1 0 0 0 1 0 0];
             
-            matlabbatch{z}.spm.stats.con.consess{7}.tcon.name    = 'achtsamTon';
-            matlabbatch{z}.spm.stats.con.consess{7}.tcon.convec  = [0 0 1 0 0 0 1 0];
+            matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsamTon';
+            matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [0 0 1 0 0 0 1 0];
             
-            matlabbatch{z}.spm.stats.con.consess{8}.tcon.name    = 'achtsamAtem';
-            matlabbatch{z}.spm.stats.con.consess{8}.tcon.convec  = [1 0 0 0 1 0 0 0];
+            matlabbatch{z}.spm.stats.con.consess{5}.tcon.name    = 'achtsamAtem';
+            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [1 0 0 0 1 0 0 0];
                 
                 
             end
