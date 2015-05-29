@@ -4,20 +4,24 @@ function preprocess_all_MF
 %      35,36,39,40,41,42,43,46,47,48,49,50,53,54,56,57,58,60,61,62,63,65,68,70,71];
 
 %subs      = [72];  %75!!!
-%subs = [ 104, 105, 108, 110, 112,113,115,116, 119, 204, 206, 207, 209, 211, 212, 214, 215,220, 221, 222];
-subs = [100, 208, 103, 114, 201, 203];  
+subs = [100, 208, 103, 114, 201, 203, 104, 105, 108, 110, 112,113,115,116, 119, 204, 206, 207, 209, 211, 212, 214, 215,220, 221, 222];
+
 
 %subs      = [100,101,102,105,107,108,110,111,113,120,121,124,125,126];
-task = 'NIFTI/MF';
 
+computer = 3;
 
 %  if isunix
 %   base     = '/projects/onda/firstlevel';
 %  else
 %   base     = 'F:\UBICA\Imaging\firstlevel';
 %  end;
-base = '/home/hannah/Dokumente/MF_MRTStudie/01_Daten/Probanden/';
-
+if computer ==1
+    base = '/home/hannah/Dokumente/MF_MRTStudie/01_Daten/Probanden/';
+elseif computer ==3
+    base = 'F:\MF_MRTStudie\01_Daten\Probanden\';
+end
+    
 
 % save_dir = 'F:\UBICA\EmoRec\Onsets\';
 % target_prefix=strcat(save_dir, 'sub_', num2str(sub));
@@ -25,21 +29,30 @@ base = '/home/hannah/Dokumente/MF_MRTStudie/01_Daten/Probanden/';
 
 
 
-for g = 1:6
+for g = 7:26
         for sess = 1:4
             clear matlabbatch;
             clear s1 s1_new s2_new s1_new_new s2_new_new allfilesnew Mean_new;
 
             %name = sprintf('sub%02.2d',subs(g));         %sub  %age
             %name = strcat(base, 'sub02', num2str(subs(g)),task, 'session', num2str(sess));
-            name = strcat(base, num2str(subs(g)), '/', task, '/', num2str(sess)); 
+            if sess == 1
+                task = 'NIFTI\MF_Task_0005';
+            elseif sess ==2
+                task = 'NIFTI\MF_Task_0006';
+            elseif sess ==3
+                task = 'NIFTI\MF_Task_0007';
+            elseif sess ==4
+                task = 'NIFTI\MF_Task_0008';
+            end
+            name = strcat(base, num2str(subs(g)), '\', task); 
 
             % specify data: matrix of filenames and TR
             %===========================================================================
             Dir1               = name;  % pain  %money
             cd (Dir1);
             %  Dir1               = [base filesep name filesep 'reward_task'];
-            Filter             = '^fMF.*';
+            Filter             = '^f.*';
             s1                 = char(select_scans(Filter, Dir1));
             %s2                 = char(select_scans(Filter, Dir2));
 
@@ -83,8 +96,11 @@ for g = 1:6
             matlabbatch{2}.spm.spatial.normalise.estwrite.subj.wtsrc     = {};
             matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample  = cellstr(s1);
 
+            if computer == 1
             matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.template={'/usr/local/MATLAB/spm12/toolbox/OldNorm/EPI.nii,1'};
-
+            elseif computer ==3
+              matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.template={'C:\Program Files\MATLAB\R2014b\toolbox\spm12\toolbox\OldNorm\EPI.nii,1'};
+            end   
 
             matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.weight   = {''};
             matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.smosrc   = 8;

@@ -1,4 +1,4 @@
-function firstlevel_MF
+function firstlevel_MF_full
 
 % --------
 % Subjects
@@ -16,7 +16,7 @@ subs = [100];
 %max_subs          = 90;   %subjects(end);
 %exclude           = [];  %!!!                                              % ENTER: Which subjects to exclude from current run
 %subjects(exclude) = [];
-computer = 1; % 1 = ubuntu, 2 = mac, 3 = windows
+computer = 3; % 1 = ubuntu, 2 = mac, 3 = windows
 
     if computer == 1 %ubuntu
         task              = 'NIFTI/MF'; 
@@ -33,6 +33,17 @@ computer = 1; % 1 = ubuntu, 2 = mac, 3 = windows
        base = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
        dir_logfiles = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
        dir_analysis = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
+   elseif computer == 3 %windows
+       task              = 'NIFTI\Vorverarbeitung';
+       %analysis_name     = 'MF_alltrials';
+       analysis_name = '1stlevel_full';
+       base = 'C:\Users\scheibha\Documents\MRT_HC\01_Daten\Probanden';
+       dir_logfiles = 'C:\Users\scheibha\Documents\MRT_HC\01_Daten\Probanden';
+       dir_analysis = 'C:\Users\scheibha\Documents\MRT_HC\01_Daten\Probanden';   
+    
+    
+    
+    
     end
 
 
@@ -57,7 +68,7 @@ inference = 1; %!!!                                                        % ENT
 onset1_1 = '-01_fMRT_mindfulness_internal_15_sce.log_timefull.mat';
 onset1_2 = '-01_fMRT_mindfulness_external_15_sce.log_timefull.mat';
 onset2_1 = '-02_fMRT_mindfulness_external_15_sce.log_timefull.mat';
-onset2_2 = '-02_fMRT_mindfulness_internal_15_sce.log_time10.mat';
+onset2_2 = '-02_fMRT_mindfulness_internal_15_sce.log_timefull.mat';
 onset3_1 = '-03_fMRT_mindfulness_internal_7.log_timefull.mat';
 onset3_2 = '-03_fMRT_mindfulness_external_7.log_timefull.mat';
 onset4_1 = '-04_fMRT_mindfulness_external_7.log_timefull.mat';
@@ -198,15 +209,6 @@ for g = 1:size(subs,2)
             matlabbatch{z}.spm.stats.con.consess{1}.fcon.name    = 'effects of interest';
             matlabbatch{z}.spm.stats.con.consess{1}.fcon.convec  = {[eye(8) zeros(8,1)]}; %% 12= es gibt 2 Moglichkeiten fuer 4 sessions
             
-%             matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'achtsam';
-%             matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [1 0 1 0 1 0 1 0];
-%     
-%             matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenkt';
-%             matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 1 0 1 0 1 0 1];
-%             
-%             
-%             matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsam-abgelenkt';
-%             matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [1 -1 1 -1 1 -1 1 -1]; 
             
             
             if subs(g) > 200

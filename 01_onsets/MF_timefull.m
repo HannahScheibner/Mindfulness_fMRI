@@ -2,7 +2,7 @@
 
 function [names, onsets, durations] = MF_timefull(prefix, name)
 
-computer = 1; % 1 = ubuntu, 2 = mac, 3 = windows
+computer = 3; % 1 = ubuntu, 2 = mac, 3 = windows
 
     if computer ==1 %ubuntu
         subj_dir = strcat('/home/hannah/Dokumente/MF_MRTStudie/01_Daten/Probanden/', prefix, '/');
@@ -11,7 +11,7 @@ computer = 1; % 1 = ubuntu, 2 = mac, 3 = windows
         subj_dir = strcat('/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden/', prefix, '/');
         filename = strcat(subj_dir, 'log/' ,prefix, name);  
     elseif computer ==3 %windows
-        subj_dir = strcat('F:\MF_MRTStudie\01_Daten\Probanden\', prefix, '\');
+        subj_dir = strcat('C:\Users\scheibha\Documents\MRT_HC\01_Daten\Probanden\', prefix, '\');
         filename = strcat(subj_dir, 'log\' ,prefix, name); %windows
     end
 
@@ -51,7 +51,7 @@ durations = cell(numel(conditions),1);
 
 for j= 1:length(fcode)
     if strcmp(fcode{j}, 'Fixcross') ==1
-        fix_time = round((str2num(ftime{j})-ftime_start)/10);
+        fix_time = round((str2num(ftime{j})-ftime_start)/10000);
     end;
     if strcmp(fcode{j}, 'Interruption_Atem')==1 ||  strcmp(fcode{j}, 'Interruption_Ton')==1
         l = 0;
@@ -66,7 +66,7 @@ for j= 1:length(fcode)
                         elseif order == 2;
                             event_types(i) = 2;
                         end;
-                        event_time(i) = round((str2num(ftime{j})-ftime_start)/10);
+                        event_time(i) = round((str2num(ftime{j})-ftime_start)/10000);
                     elseif strcmp (fcode{m}, '2') ==1
                         i = i + 1;
                         if order == 1;
@@ -74,7 +74,7 @@ for j= 1:length(fcode)
                         elseif order == 2;
                            event_types(i) = 1;
                         end;
-                        event_time(i) = round((str2num(ftime{j})-ftime_start)/10);
+                        event_time(i) = round((str2num(ftime{j})-ftime_start)/10000);
                    end;
                 onsets{event_types(i)} = [onsets{event_types(i)} (fix_time)]; %
                 durations{event_types(i)} = [durations{event_types(i)} (event_time(i)-fix_time)]
@@ -88,7 +88,7 @@ for j= 1:length(fcode)
                 elseif order == 2;
                            event_types(i) = 1;
                 end;
-                event_time(i) = round((str2num(ftime{j})-ftime_start)/10);
+                event_time(i) = round((str2num(ftime{j})-ftime_start)/10000);
                 onsets{event_types(i)} = [onsets{event_types(i)} (fix_time)]; %
                 durations{event_types(i)} = [durations{event_types(i)} (event_time(i)-fix_time)];
                 l=1;
@@ -108,6 +108,8 @@ if computer ==1
     cd ('/home/hannah/Dokumente/MF_MRTStudie/03_Auswertung');
 elseif computer ==2
     cd('/Volumes/INTENSO/MF_MRTStudie/03_Auswertung');
+elseif computer == 3
+    cd ('C:\Users\scheibha\Documents\Mindfulness_fMRI\01_onsets');
 end
 end
 

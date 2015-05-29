@@ -1,21 +1,14 @@
-function firstlevel_MF
+function firstlevel_MF_10
 
 % --------
 % Subjects
 % --------
-% subs      = [7,11,17,18,19,31,33,49,53,55,58,59,61,65,68,70,74, .... 
-%              78, 91, 95, 101, 108, 111, 124];
-%subs      = [100, 103, 105,  110, 112:116, 119]
+
+
 subs      = [100, 103, 105,  110, 112:116, 119, 201, 204, 208, 209, 211, 214:215,220:222];
 
 %108 and 206, 207, 212 had to be excluded because it didn't have and mind wandering in
-%session 3
-%subs      = [101,102,107,108,110,111,113,120,121,124,126];
-%subs = 1;
 
-%max_subs          = 90;   %subjects(end);
-%exclude           = [];  %!!!                                              % ENTER: Which subjects to exclude from current run
-%subjects(exclude) = [];
 computer = 1; % 1 = ubuntu, 2 = mac, 3 = windows
 
     if computer == 1 %ubuntu
@@ -33,6 +26,13 @@ computer = 1; % 1 = ubuntu, 2 = mac, 3 = windows
        base = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
        dir_logfiles = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
        dir_analysis = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
+elseif computer == 3 %windows
+       task              = 'NIFTI\Vorverarbeitung';
+       %analysis_name     = 'MF_alltrials';
+       analysis_name = '1stlevel_response';
+       base = 'C:\Users\scheibha\Documents\MRT_HC\01_Daten\Probanden';
+       dir_logfiles = 'C:\Users\scheibha\Documents\MRT_HC\01_Daten\Probanden';
+       dir_analysis = 'C:\Users\scheibha\Documents\MRT_HC\01_Daten\Probanden';   
     end
 
 
