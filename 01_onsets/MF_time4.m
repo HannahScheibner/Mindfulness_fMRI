@@ -45,7 +45,7 @@ end;
 TR = 2000;
 
 conditions = {'achtsam' 'abgelenkt'};
-onsets = cell(numel(conditions),1);
+onsets_thought = cell(numel(conditions),1);
 
 
 
@@ -75,7 +75,7 @@ for j= 1:length(fcode)
                         event_time(i) = round((round((str2num(ftime{j})-ftime_start)/10)/TR)*10)/10;
                      end;
                         % save onset times corrected for one DDA
-                     onsets{event_types(i)} = [onsets{event_types(i)} (event_time(i)-2)]; %onset minus 2 TR (4sec)
+                     onsets_thought{event_types(i)} = [onsets_thought{event_types(i)} (event_time(i)-2)]; %onset minus 2 TR (4sec)
                         %onsets{event_types(i)} = [onsets{event_types(i)} (event_time(i)-1) ];
                      l = 1;
             end;
@@ -87,7 +87,7 @@ for j= 1:length(fcode)
                            event_types(i) = 1;
                 end;
                 event_time(i) = round((round((str2num(ftime{j})-ftime_start)/10)/TR)*10)/10;
-                onsets{event_types(i)} = [onsets{event_types(i)} (event_time(i)-2)]; 
+                onsets_thought{event_types(i)} = [onsets_thought{event_types(i)} (event_time(i)-2)]; 
                 l=1;
             end;
          end;

@@ -4,9 +4,9 @@ function preprocess_all_MF
 %      35,36,39,40,41,42,43,46,47,48,49,50,53,54,56,57,58,60,61,62,63,65,68,70,71];
 
 %subs      = [72];  %75!!!
-subs = [100, 208, 103, 114, 201, 203, 104, 105, 108, 110, 112,113,115,116, 119, 204, 206, 207, 209, 211, 212, 214, 215,220, 221, 222];
-
-
+%subs = [206, 207, 209, 211, 212, 214, 215,220, 221, 222];
+%subs = [103,201,203,208];
+subs = [201];
 %subs      = [100,101,102,105,107,108,110,111,113,120,121,124,125,126];
 
 computer = 3;
@@ -29,7 +29,7 @@ end
 
 
 
-for g = 7:26
+for g = 1
         for sess = 1:4
             clear matlabbatch;
             clear s1 s1_new s2_new s1_new_new s2_new_new allfilesnew Mean_new;
@@ -51,12 +51,12 @@ for g = 7:26
             %===========================================================================
             Dir1               = name;  % pain  %money
             cd (Dir1);
-            %  Dir1               = [base filesep name filesep 'reward_task'];
-            Filter             = '^f.*';
-            s1                 = char(select_scans(Filter, Dir1));
-            %s2                 = char(select_scans(Filter, Dir2));
-
-            % Mean               = cellstr(s1(1,:));
+             %  Dir1               = [base filesep name filesep 'reward_task'];
+             Filter             = '^f.*';
+             s1                 = char(select_scans(Filter, Dir1));
+%             %s2                 = char(select_scans(Filter, Dir2));
+% 
+%             % Mean               = cellstr(s1(1,:));
 
             %-----------------------------------------------------------------------
             % Job configuration created by cfg_util (rev $Rev: 2787 $)
@@ -79,8 +79,8 @@ for g = 7:26
             %realign
 
             matlabbatch{1}.spm.spatial.realign.estimate.data{1} = cellstr(s1);
-
-
+% 
+% 
             matlabbatch{1}.spm.spatial.realign.estimate.eoptions.quality = 0.9;
             matlabbatch{1}.spm.spatial.realign.estimate.eoptions.sep     = 4;
             matlabbatch{1}.spm.spatial.realign.estimate.eoptions.fwhm    = 5;
@@ -119,11 +119,11 @@ for g = 7:26
 
             % smoothing
 
-            allfiles = s1;
-            for zz = 1:size(allfiles,1)
-                allfilesnew(zz,:) = strrep(allfiles(zz,:),'fMF','wfMF');
-            end;
-
+             allfiles = s1;
+             for zz = 1:size(allfiles,1)
+                 allfilesnew(zz,:) = strrep(allfiles(zz,:),'fMF','wfMF');
+             end;
+% 
 
             matlabbatch{3}.spm.spatial.smooth.data =cellstr(allfilesnew);
             matlabbatch{3}.spm.spatial.smooth.fwhm = [8 8 8];

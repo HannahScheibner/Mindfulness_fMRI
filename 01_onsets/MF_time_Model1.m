@@ -1,6 +1,6 @@
 
 
-function [names, onsets, durations] = MF_time_buttons(prefix, name)
+function [names, onsets, durations] = MF_time_Model1(prefix, name)
 
 computer = 3; % 1 = ubuntu, 2 = mac, 3 = windows
 
@@ -46,7 +46,9 @@ end;
 %TR = 2000;
 
 conditions = {'achtsam' 'abgelenkt'};
-onsets = cell(numel(conditions),1);
+onsets_thought = cell(numel(conditions),1);
+onsets_response = cell(1,1);
+durations_response = cell(1,1);
 
 
 
@@ -66,6 +68,7 @@ for j= 1:length(fcode)
                             event_types(i) = 2;
                         end;
                         event_time(i) = (str2num(ftime{j})-ftime_start)/10000;
+                        response_time(i) = (str2num(ftime{m})-ftime_start)/10000;
                     elseif strcmp (fcode{m}, '2') ==1
                         i = i + 1;
                         if order == 1;
@@ -74,9 +77,16 @@ for j= 1:length(fcode)
                            event_types(i) = 1;
                         end;
                         event_time(i) = (str2num(ftime{j})-ftime_start)/10000;
+                        response_time(i) = (str2num(ftime{m})-ftime_start)/10000;
                      end;
                         % save onset times corrected for one DDA
-                     onsets{event_types(i)} = [onsets{event_types(i)} (event_time(i)-4)]; %onset 
+                     onsets_thought{event_types(i)} = [onsets_thought{event_types(i)} (event_time(i)-4)]; %onset 
+                      onsets_response{1}=[onsets_response{1} (event_time(i))]
+                     if response_time(i)-event_time(i)>3
+                         durations_response{1} = [durations_response{1} (response_time(i)-event_time(i))]
+                     else
+                        durations_response{1} = [durations_response{1} 3]
+                     end;
                         %onsets{event_types(i)} = [onsets{event_types(i)} (event_time(i)-1) ];
                      l = 1;
             end;
@@ -88,7 +98,9 @@ for j= 1:length(fcode)
                            event_types(i) = 2;
                 end;
                 event_time(i) = (str2num(ftime{j})-ftime_start)/10000;
-                onsets{event_types(i)} = [onsets{event_types(i)} (event_time(i)-4)]; 
+                onsets_thought{event_types(i)} = [onsets_thought{event_types(i)} (event_time(i)-4)]; %onset 
+                onsets_response{1}=[onsets_response{1} (event_time(i))]
+                durations_response{1} = [durations_response{1} 3]
                 l=1;
             end;
          end;
@@ -117,10 +129,11 @@ end;
 
 
 names = (conditions)';
-for l=1:length(onsets)
-    durations{l}=onsets{l}*0+1.5;
+names_response = {'response'};
+for l=1:length(onsets_thought)
+    durations_thought{l}=onsets_thought{l}*0+4;
 end
-durations = (durations)';
+durations_thought = (durations_thought)';
 
 cd(subj_dir);
 if isdir ('onsets')
@@ -130,7 +143,7 @@ else
     cd('onsets');
 end
 save('order.mat', 'order');
-save(strcat(prefix,name,'_time_buttons.mat'), 'names', 'onsets', 'durations');
+save(strcat(prefix,name,'_time_Model1.mat'), 'names', 'names_response', 'onsets_thought', 'onsets_response', 'durations_thought', 'durations_response');
 if computer ==1
     cd ('/media/hannah/INTENSO/MF_MRTStudie/03_Auswertung/01_onsets');
 elseif computer ==2

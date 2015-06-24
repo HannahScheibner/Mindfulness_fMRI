@@ -1,12 +1,12 @@
-function firstlevel_MF_2TR_button
+function firstlevel_MF_ModelMotor(ids)
 
 % --------
 % Subjects
 % --------
 % subs      = [7,11,17,18,19,31,33,49,53,55,58,59,61,65,68,70,74, .... 
 %              78, 91, 95, 101, 108, 111, 124];
-%subs      = [100, 103, 105,  110, 112:116, 119]
-subs      = [100, 103, 104, 105,  110, 112:116, 119, 201, 203, 204, 208, 209, 211, 214:215,220:222];
+subs = [100,  103, 104, 105, 110, 112:116, 119, 201, 203, 204, 208, 209, 211, 214:215,220:222];
+subs      = subs(ids);
 
 %108 and 206, 207, 212 had to be excluded because it didn't have and mind wandering in
 %session 3
@@ -20,24 +20,23 @@ computer = 3; % 1 = ubuntu, 2 = mac, 3 = windows
 
     if computer == 1 %ubuntu
         task              = 'NIFTI/MF'; 
-        analysis_name     = '1stlevel_2TR_button';
+        analysis_name     = 'ModelMotor';
         base              = '/home/hannah/Dokumente/MF_MRTStudie/01_Daten/Probanden';
         dir_logfiles      = '/home/hannah/Dokumente/MF_MRTStudie/01_Daten/Probanden'; 
         dir_analysis = '/home/hannah/Dokumente/MF_MRTStudie/01_Daten/Probanden';
 
     elseif computer == 2 %mac
        task              = 'NIFTI/Vorverarbeitung';
-       analysis_name     = 'MF_alltrials';
+       analysis_name     = 'ModelMotor';
        base = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
        dir_logfiles = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
        dir_analysis = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
-    elseif computer == 2 %windows
-       task              = 'NIFTI/Vorverarbeitung';
-       analysis_name     = 'MF_alltrials';
-       base = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
-       dir_logfiles = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
-       dir_analysis = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden';
-    end
+    elseif computer == 3 %windows
+       analysis_name     = 'ModelMotor';
+       base = 'F:\MF_MRTStudie\01_Daten\Probanden';
+       dir_logfiles = 'F:\MF_MRTStudie\01_Daten\Probanden';
+       dir_analysis = 'F:\MF_MRTStudie\01_Daten\Probanden';      
+end
 
 
 % ------------
@@ -48,8 +47,8 @@ dir_starting      = pwd;                                                    % pw
 % -----
 % flags
 % -----
-specify   = 0;                                                             % ENTER: 0-No/1-Yes
-estimate  = 0; %!!!                                                        % ENTER: 0-No/1-Yes
+specify   = 1;                                                             % ENTER: 0-No/1-Yes
+estimate  = 1; %!!!                                                        % ENTER: 0-No/1-Yes
 inference = 1; %!!!                                                        % ENTER: 0-No/1-Yes
 
 
@@ -58,23 +57,15 @@ inference = 1; %!!!                                                        % ENT
 % names for onset files
 %----
 
-onset1_1 = '-01_fMRT_mindfulness_internal_15_sce.log_time2.mat';
-onset1_2 = '-01_fMRT_mindfulness_external_15_sce.log_time2.mat';
-onset2_1 = '-02_fMRT_mindfulness_external_15_sce.log_time2.mat';
-onset2_2 = '-02_fMRT_mindfulness_internal_15_sce.log_time2.mat';
-onset3_1 = '-03_fMRT_mindfulness_internal_7.log_time2.mat';
-onset3_2 = '-03_fMRT_mindfulness_external_7.log_time2.mat';
-onset4_1 = '-04_fMRT_mindfulness_external_7.log_time2.mat';
-onset4_2 = '-04_fMRT_mindfulness_internal_7.log_time2.mat';
+onset1_1 = '-01_fMRT_mindfulness_internal_15_sce.log_time_ModelMotor.mat';
+onset1_2 = '-01_fMRT_mindfulness_external_15_sce.log_time_ModelMotor.mat';
+onset2_1 = '-02_fMRT_mindfulness_external_15_sce.log_time_ModelMotor.mat';
+onset2_2 = '-02_fMRT_mindfulness_internal_15_sce.log_time_ModelMotor.mat';
+onset3_1 = '-03_fMRT_mindfulness_internal_7.log_time_ModelMotor.mat';
+onset3_2 = '-03_fMRT_mindfulness_external_7.log_time_ModelMotor.mat';
+onset4_1 = '-04_fMRT_mindfulness_external_7.log_time_ModelMotor.mat';
+onset4_2 = '-04_fMRT_mindfulness_internal_7.log_time_ModelMotor.mat';
 
-button1_1 = '-01_fMRT_mindfulness_internal_15_sce.log_time_buttons.mat';
-button1_2 = '-01_fMRT_mindfulness_external_15_sce.log_time_buttons.mat';
-button2_1 = '-02_fMRT_mindfulness_external_15_sce.log_time_buttons.mat';
-button2_2 = '-02_fMRT_mindfulness_internal_15_sce.log_time_buttons.mat';
-button3_1 = '-03_fMRT_mindfulness_internal_7.log_time_buttons.mat';
-button3_2 = '-03_fMRT_mindfulness_external_7.log_time_buttons.mat';
-button4_1 = '-04_fMRT_mindfulness_external_7.log_time_buttons.mat';
-button4_2 = '-04_fMRT_mindfulness_internal_7.log_time_buttons.mat';
 
 
 
@@ -109,72 +100,88 @@ for g = 1:size(subs,2)
         
         z = z+1;
         
-        matlabbatch{z}.spm.stats.fmri_spec.timing.units           = 'scans';
+        matlabbatch{z}.spm.stats.fmri_spec.timing.units           = 'secs';
         matlabbatch{z}.spm.stats.fmri_spec.timing.RT              = 2
         matlabbatch{z}.spm.stats.fmri_spec.timing.fmri_t          = 16;
         matlabbatch{z}.spm.stats.fmri_spec.timing.fmri_t0         = 8;
         
         %---- load onsets for each session ------
         
-        for s = 1:4 % sessions = 2
-            
+        for s = 1:4 % sessions = 4
             if subs(g) <200
                 if s == 1 
+%                     sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset1_1])
+                    task = 'NIFTI\MF_Task_0005';
                     sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset1_1])
-                    sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button1_1])
                 elseif s==2
+%                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset2_1]);
                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset2_1]);
-                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button2_1]);
+                    task = 'NIFTI\MF_Task_0006';
                 elseif s==3
-                 sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset3_1]);
-                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button3_1]); 
+                     task = 'NIFTI\MF_Task_0007';
+%                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset3_1]);
+                 sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset3_1]); 
                 elseif s==4
+                    task = 'NIFTI\MF_Task_0008';
+%                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset4_1]);    
                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset4_1]);    
-                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button4_1]);    
                 end
             else
                  if s == 1 
+                     task = 'NIFTI\MF_Task_0005';
+%                     sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset1_2]);
                     sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset1_2]);
-                    sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button1_2]);
                 elseif s==2
+                    task = 'NIFTI\MF_Task_0006';
+%                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset2_2]);
                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset2_2]);
-                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button2_2]);
                 elseif s==3
+                    task = 'NIFTI\MF_Task_0007';
+%                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset3_2]);
                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset3_2]);
-                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button3_2]);
                 elseif s==4
+                    task = 'NIFTI\MF_Task_0008';
+%                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset4_2]);
                  sess_onsets = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) onset4_2]);
-                 sess_buttons = load([base filesep num2str(subs(g)) filesep 'onsets' filesep num2str(subs(g)) button4_2]);
                  end
             end
-            matlabbatch{z}.spm.stats.fmri_spec.sess(s).scans             = select_scans('^s8.*',[base filesep num2str(subs(g)) filesep task filesep num2str(s)]) %kann je nach smoothing ge�ndert werden
-            
-            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(1).name      = sess_onsets.names{1,1}; %achtsam
-            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(1).onset     = sess_onsets.onsets{1,1};
-            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(1).duration  = sess_onsets.durations{1,1};
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).scans             = select_scans('^s8.*',[base filesep num2str(subs(g)) filesep task filesep num2str(s)]) %kann je nach smoothing ge�ndert werden
+            matlabbatch{z}.spm.stats.fmri_spec.sess(s).scans             = select_scans('^s8.*',[base filesep num2str(subs(g)) filesep task]);
+            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(1).name      = sess_onsets.names{1,1}; %Links
+            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(1).onset     = sess_onsets.onsets_thought{1,1};
+            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(1).duration  = sess_onsets.durations_thought{1,1};
             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(1).tmod      = 0
             
             %         matlabbatch{z}.spm.stats.fmri_spec.sess.cond(1).pmod.name  = 'CS_NE_M Prediction';
             %         matlabbatch{z}.spm.stats.fmri_spec.sess.cond(1).pmod.param = [V(find(u(:,3)==1),3) - mean(V(find(u(:,3)==1),3))];
             %         matlabbatch{z}.spm.stats.fmri_spec.sess.cond(1).pmod.poly  = 1;
             
-            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(2).name      = sess_onsets.names{2,1}; %abgelenkt
-            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(2).onset     = sess_onsets.onsets{2,1};
-            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(2).duration  = sess_onsets.durations{2,1};
+            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(2).name      = sess_onsets.names{2,1}; %Rechts
+            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(2).onset     = sess_onsets.onsets_thought{2,1};
+            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(2).duration  = sess_onsets.durations_thought{2,1};
             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(2).tmod      = 0
             
-             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).name      = sess_buttons.names{1,1}; %no_response
-             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).onset     = sess_buttons.onsets{1,1};
-             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).duration  = sess_buttons.durations{1,1};
-            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).tmod      = 0
-
-             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).name      = sess_buttons.names{2,1}; %no_response
-             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).onset     = sess_buttons.onsets{2,1};
-             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).duration  = sess_buttons.durations{2,1};
-            matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).tmod      = 0
-
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).name      = sess_onsets.names_extras{1,1}; %response
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).onset     = sess_onsets.onsets_response{1,1};
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).duration  = sess_onsets.durations_response{1,1};
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(3).tmod      = 0
+%             
             
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).name      = sess_onsets.names_extras{2,1}; %shift
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).onset     = sess_onsets.onsets_shift{1,1};
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).duration  = sess_onsets.durations_shift{1,1};
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).tmod      = 0
+%             
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(5).name      = sess_onsets.names_extras{3,1}; %focus
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(5).onset     = sess_onsets.onsets_focus{1,1};
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(5).duration  = sess_onsets.durations_focus{1,1};
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(5).tmod      = 0
             
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).name      = sess_onsets.names_extras{4,1}; %no_interest
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).onset     = sess_onsets.onsets_nointerest{1,1};
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).duration  = sess_onsets.durations_nointerest{1,1};
+%             matlabbatch{z}.spm.stats.fmri_spec.sess(s).cond(4).tmod      = 0
+%             
             matlabbatch{z}.spm.stats.fmri_spec.sess(s).multi             = {''};
             %matlabbatch{z}.spm.stats.fmri_spec.sess(s).regress.name      = ;
             %matlabbatch{z}.spm.stats.fmri_spec.sess(s).regress.val       = ;
@@ -222,56 +229,51 @@ for g = 1:size(subs,2)
     
     
             matlabbatch{z}.spm.stats.con.consess{1}.fcon.name    = 'effects of interest';
-            matlabbatch{z}.spm.stats.con.consess{1}.fcon.convec  = {[eye(16) zeros(16,1)]}; %% 12= es gibt 4 Moglichkeiten fuer 4 sessions
+            matlabbatch{z}.spm.stats.con.consess{1}.fcon.convec  = {[eye(12) zeros(12,1)]}; %% 12 = es gibt 3 Moglichkeiten fuer 4 sessions
             
 %             matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'achtsam';
-%             matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [1 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0];
+%             matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [1 0 1 0 1 0 1 0];
 %     
 %             matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenkt';
-%             matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 1 0 1 0 1 0 1 0 0 0 0 0 0 0 0];
+%             matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 1 0 1 0 1 0 1];
 %             
 %             
 %             matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsam-abgelenkt';
-%             matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [1 -1 1 -1 1 -1 1 -1 0 0 0 0 0 0 0 0]; 
+%             matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [1 -1 1 -1 1 -1 1 -1]; 
             
             
             if subs(g) > 200
             
             matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'abgelenktTon';
-            matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0];
+            matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [0 1 0 0 0 0 0 1 0 0 0 0];
             
             matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenktAtem';
-            matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0];
+            matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 0 0 0 1 0 0 0 0 0 1 0];
             
             matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsamTon';
-            matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0];
+            matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [1 0 0 0 0 0 1 0 0 0 0 0];
             
             matlabbatch{z}.spm.stats.con.consess{5}.tcon.name    = 'achtsamAtem';
-            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0];
-            
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.name    = 'Antworten';
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.convec  = [0 0 1 1 0 0 1 1 0 0 1 1 0 0 1 1];
+            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [0 0 0 1 0 0 0 0 0 1 0 0];
 
             else
             matlabbatch{z}.spm.stats.con.consess{2}.tcon.name    = 'abgelenktTon';
-            matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0];   
+            matlabbatch{z}.spm.stats.con.consess{2}.tcon.convec  = [0 0 0 0 1 0 0 0 0 0 1 0];
             
             matlabbatch{z}.spm.stats.con.consess{3}.tcon.name    = 'abgelenktAtem';
-            matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0];
+            matlabbatch{z}.spm.stats.con.consess{3}.tcon.convec  = [0 1 0 0 0 0 0 1 0 0 0 0];
             
             matlabbatch{z}.spm.stats.con.consess{4}.tcon.name    = 'achtsamTon';
-            matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0];
+            matlabbatch{z}.spm.stats.con.consess{4}.tcon.convec  = [0 0 0 1 0 0 0 0 0 1 0 0];
             
             matlabbatch{z}.spm.stats.con.consess{5}.tcon.name    = 'achtsamAtem';
-            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0];
-            
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.name    = 'Antworten';
-            matlabbatch{z}.spm.stats.con.consess{6}.tcon.convec  = [0 0 1 1 0 0 1 1 0 0 1 1 0 0 1 1];
-                
-                
+            matlabbatch{z}.spm.stats.con.consess{5}.tcon.convec  = [1 0 0 0 0 0 1 0 0 0 0 0];
             end
-            
-            
+            matlabbatch{z}.spm.stats.con.consess{6}.tcon.name    = 'Response';
+            matlabbatch{z}.spm.stats.con.consess{6}.tcon.convec  = [0 0 1 0 0 1 0 0 1 0 0 1];
+%             matlabbatch{z}.spm.stats.con.consess{7}.tcon.name    = 'NoInterest';
+%             matlabbatch{z}.spm.stats.con.consess{7}.tcon.convec  = [0 0 0 1 0 0 0 1 0 0 0 1 0 0 0 1 ];
+
         end
     
     
@@ -286,6 +288,8 @@ for g = 1:size(subs,2)
         cd ('/home/hannah/Mindfulness_fMRI/03_firstlevel');
     elseif computer ==2
         cd('/Volumes/INTENSO/MF_MRTStudie/03_Auswertung');
+    elseif computer ==3
+        cd('C:\Users\scheibha\Documents\Mindfulness_fMRI\03_firstlevel');
     end
 end
 

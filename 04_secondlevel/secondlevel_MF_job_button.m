@@ -3,7 +3,9 @@
 % spm SPM - SPM12 (6225)
 % cfg_basicio BasicIO - Unknown
 %-----------------------------------------------------------------------
-subs      = [103, 104, 105,  110, 112:116, 119,  203,   209, 211, 214:215,221:222];
+%allsubs      = [100,  103, 104, 105, 108,  110, 112:116, 119, 201, 203, 204, 206, 207, 208, 209, 211, 212, 214:215,220:222];
+
+subs      = [100, 103, 104, 105,  110, 112:116, 119, 201, 203, 204, 206,  208, 209, 211, 214:215,221,222];
 
 computer = 3; % 1 = ubuntu, 2 = mac, 3 = windows
 
@@ -12,8 +14,8 @@ computer = 3; % 1 = ubuntu, 2 = mac, 3 = windows
     elseif computer ==2 %mac
         filename = '/Volumes/INTENSO/MF_MRTStudie/01_Daten/Probanden/';
     elseif computer ==3 %windows
-        filename = 'F:\MF_MRTStudie\01_Daten\Probanden';
-        designdirectory = {'F:\MF_MRTStudie\01_Daten\Probanden\buttons'};
+        filename = 'F:\MF_MRTStudie\01_Daten\Probanden\';
+        designdirectory = {'F:\MF_MRTStudie\01_Daten\buttonscor'};
     end
     
 matlabbatch{1}.spm.stats.factorial_design.dir = designdirectory;
@@ -34,10 +36,10 @@ matlabbatch{1}.spm.stats.factorial_design.des.fd.fact(2).ancova = 0;
 
 
 for g = 1:size(subs,2)  
-scans_1_1 {g,1} = strcat(filename, num2str(subs(g)), '/buttons/con_0005.nii,1'); %Atem achtsam
-scans_1_2 {g,1} = strcat(filename, num2str(subs(g)), '/buttons/con_0004.nii,1'); %Ton achtsam
-scans_2_1 {g,1} = strcat(filename, num2str(subs(g)), '/buttons/con_0003.nii,1'); %Atem abgelenkt
-scans_2_2 {g,1} = strcat(filename, num2str(subs(g)), '/buttons/con_0002.nii,1'); %Ton abgelenkt
+scans_1_1 {g,1} = strcat(filename, num2str(subs(g)), '/buttonscor/con_0005.nii,1'); %Atem achtsam
+scans_1_2 {g,1} = strcat(filename, num2str(subs(g)), '/buttonscor/con_0004.nii,1'); %Ton achtsam
+scans_2_1 {g,1} = strcat(filename, num2str(subs(g)), '/buttonscor/con_0003.nii,1'); %Atem abgelenkt
+scans_2_2 {g,1} = strcat(filename, num2str(subs(g)), '/buttonscor/con_0002.nii,1'); %Ton abgelenkt
 
 end
 

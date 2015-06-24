@@ -8,7 +8,7 @@ computer = 3; % 1 = ubuntu, 2 = mac, 3 = windows
     elseif computer ==2 %mac
         jobfile = {};
     elseif computer ==3 %windows
-        jobfile = {'C:\Users\scheibha\Documents\Mindfulness_fMRI\04_secondlevel\secondlevel_MF_job_10.m'};
+        jobfile = {'C:\Users\scheibha\Documents\Mindfulness_fMRI\04_secondlevel\secondlevel_MF_job_button.m'};
     end
     
 jobs = repmat(jobfile, 1, nrun);
